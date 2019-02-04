@@ -166,7 +166,7 @@ class Pop3:
         self.conn.quit()
 
 class Email:
-    def download_attachment(attachment, download_dir=download_dir):
+    def download_attachment(attachment, download_dir="/tmp"):
         if not attachment:
             print("vuoto")
             return None

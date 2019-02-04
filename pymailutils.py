@@ -165,4 +165,29 @@ class Pop3:
     def __exit__(self, type, value, traceback):
         self.conn.quit()
 
+class Email:
+    def download_attachment(attachment, download_dir=download_dir):
+        if not attachment:
+            print("vuoto")
+            return None
 
+            filename = attachment.get_filename()
+            filepath = download_dir + '/' + filename
+            if not os.path.isfile(filepath):
+                fp = open(filepath, 'wb')
+                fp.write(attachment.get_payload(decode=True))
+                fp.close()
+
+                return(filepath)
+
+    def get_body(self,email_as_text=None):
+        msg = email.message_from_string(email_as_text)
+        if msg.is_multipart():
+            for payload in msg.get_payload():
+                print_payload(payload)
+                return(paylod)
+        else:
+            for part in msg.walk():
+                if part.get_content_type():
+                    body = str(part.get_payload())
+                    return(body)

@@ -191,3 +191,9 @@ class Email:
                 if part.get_content_type():
                     body = str(part.get_payload())
                     return(body)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        return self

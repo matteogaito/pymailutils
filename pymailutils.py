@@ -1,6 +1,7 @@
 import imaplib
 import poplib
 import time
+import email
 
 class Imap:
     def __init__(self, hostname, port=None, username=None, password=None):
@@ -184,8 +185,7 @@ class Email:
         msg = email.message_from_string(email_as_text)
         if msg.is_multipart():
             for payload in msg.get_payload():
-                print_payload(payload)
-                return(paylod)
+                return(payload)
         else:
             for part in msg.walk():
                 if part.get_content_type():

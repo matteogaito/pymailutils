@@ -2,19 +2,20 @@ import imaplib
 import poplib
 import time
 import email
+import logging
 
 class Imap:
     def __init__(self, hostname, port=None, username=None, password=None):
         self.hostname = hostname
         self.username = username
         self.password = password
-        self.port = port
+        self.port = int(port)
 
         if port == 993:
             try:
                 self.conn = imaplib.IMAP4_SSL(hostname, port)
                 if 'STARTTLS' in self.conn.capabilities:
-                    print("trovato")
+                    logging.info("StartTLS found in capabilities")
             except:
                 self.conn = False
         elif port == 143:
@@ -22,7 +23,7 @@ class Imap:
                 self.conn = imaplib.IMAP4(hostname, port)
             except:
                 self.conn = False
-
+        logging.info("Host:{}, Port:{}".format(self.hostname,self.port))
         self.prelogincapabilities = self.conn.capabilities
         self.preloginwelcome = self.conn.welcome
 

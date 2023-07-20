@@ -52,6 +52,10 @@ class Imap:
                 found = True
         return found
 
+    def move_uid( self, uid, folder ):
+        result = self.conn.uid('MOVE', uid, folder)
+        return(result)
+
     def select(self, mailbox):
         return self.conn.select(mailbox)
 

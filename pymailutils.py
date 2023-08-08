@@ -55,7 +55,7 @@ class Imap:
     def move_uid( self, uid, folder ):
         result = self.conn.select(mailbox)
         status_1, response_1 = self.conn.copy(uid, folder)
-        if status_1 == 'OK' and response_1 not None:
+        if status_1 == 'OK' and response_1 is not None:
             status_2, response_2 = self.conn.store(uid, '+FLAGS', '(\Deleted)')
             status_3, response_3 = self.conn.expunge()
             return(status_1, response_1)

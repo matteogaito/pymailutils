@@ -53,8 +53,14 @@ class Imap:
         return found
 
     def move_uid( self, uid, folder ):
-        result = self.conn.uid('MOVE', uid, folder)
-        return(result)
+        result = self.conn.select(mailbox)
+        status_1, response_1 = self.conn.copy(uid, folder)
+        if status_1 == 'OK' and response_1 not None:
+            status_2, response_2 = self.conn.store(uid, '+FLAGS', '(\Deleted)')
+            status_3, response_3 = self.conn.expunge()
+            return(status_1, response_1)
+        else:
+            raise("error: {} {}".format(status_1, response_1))
 
     def select(self, mailbox):
         return self.conn.select(mailbox)

@@ -52,7 +52,7 @@ class Imap:
                 found = True
         return found
 
-    def move_uid( self, uid, folder ):
+    def move_uid( self, uid, folder, mailbox="INBOX" ):
         result = self.conn.select(mailbox)
         status_1, response_1 = self.conn.copy(uid, folder)
         if status_1 == 'OK' and response_1 is not None:
